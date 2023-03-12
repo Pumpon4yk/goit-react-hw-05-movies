@@ -8,7 +8,7 @@ import {
 } from './MovieDetails.styled';
 import { useParams, useLocation, Link, Outlet } from 'react-router-dom';
 import { getMovie } from 'API/get-API';
-import { useEffect, useState, Suspense } from 'react';
+import { useEffect, useState, Suspense, useRef } from 'react';
 
 const BASE_URL_IMG = 'https://image.tmdb.org/t/p/w500/';
 
@@ -16,7 +16,9 @@ const MovieDetails = () => {
     const [movie, setMovie] = useState(null);
     const { id } = useParams();
     const location = useLocation();
-    const backLinkHref = location.state?.from ?? '/';
+    const backLinkHref = location.state?.from ?? '/movies';
+    const prevLoc = useRef(backLinkHref)
+
 
     useEffect(() => {
         const abortController = new AbortController();
@@ -30,7 +32,7 @@ const MovieDetails = () => {
 
     return (
         <Container>
-            <Button to={backLinkHref}>to back</Button>
+            <Button to={prevLoc.current}>to back</Button>
 
             {movie && (
                 <Datails>
