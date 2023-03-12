@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 export const Container = styled.div`
 width: 1200px;
 margin: 0 auto;
-background-color: #00000011;
+/* background-color: #00000011; */
 padding-bottom: 20px;
 `;
 
