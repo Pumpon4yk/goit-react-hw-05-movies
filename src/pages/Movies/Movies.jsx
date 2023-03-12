@@ -4,29 +4,29 @@ import { useSearchParams } from 'react-router-dom';
 import { getSearchMovie } from 'API/get-API';
 import { useEffect, useState } from 'react';
 import ListMovies from 'components/ListMovies';
-import PropTypes from 'prop-types';
 
 const Movies = () => {
     const [movies, setMovies] = useState([]);
     const [searchParams, setSearchParams] = useSearchParams();
+  const search = searchParams.get('search');
+
 
     useEffect(() => {
-        if (searchParams === '') return;
+        if (search === '') return;
 
         const abortController = new AbortController();
 
-        getSearchMovie(abortController, searchParams).then(res =>
+        getSearchMovie(abortController, search).then(res =>
             setMovies(res.data.results)
         );
 
         return () => {
             abortController.abort();
         };
-    }, [searchParams]);
+    }, [search]);
 
     const handelSubmit = name => {
-        const nextParams = name !== '' ? { name } : {};
-        setSearchParams(nextParams);
+        setSearchParams({ search: name });
     };
 
     return (
@@ -36,10 +36,5 @@ const Movies = () => {
         </Container>
     );
 };
-
-Movies.propTypes ={
-    movies: PropTypes.string.isRequired,
-    handelSubmit: PropTypes.func.isRequired
-}
 
 export default Movies;
