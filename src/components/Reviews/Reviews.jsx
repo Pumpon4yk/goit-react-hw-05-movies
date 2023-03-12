@@ -7,11 +7,18 @@ const Reviews = () => {
     const { id } = useParams();
     const [state, setSteta] = useState([]);
     const [load, setload] = useState(false);
+
     useEffect(() => {
-        getMovieReviews(id).then(res => {
+        const abortController = new AbortController();
+
+        getMovieReviews(abortController, id).then(res => {
             setSteta(res.data.results);
             setload(true);
         });
+
+        return () => {
+            abortController.abort();
+        };
     }, [id]);
 
     return (

@@ -1,5 +1,12 @@
-import { Container, Img, Wraper, Text, Button, Datails } from './MovieDetails.styled';
-import { useParams, useLocation, Link , Outlet} from 'react-router-dom';
+import {
+    Container,
+    Img,
+    Wraper,
+    Text,
+    Button,
+    Datails,
+} from './MovieDetails.styled';
+import { useParams, useLocation, Link, Outlet } from 'react-router-dom';
 import { getMovie } from 'API/get-API';
 import { useEffect, useState, Suspense } from 'react';
 
@@ -12,7 +19,13 @@ const MovieDetails = () => {
     const backLinkHref = location.state?.from ?? '/';
 
     useEffect(() => {
-        getMovie(id).then(res => setMovie(res.data));
+        const abortController = new AbortController();
+
+        getMovie(abortController, id).then(res => setMovie(res.data));
+
+        return () => {
+            abortController.abort();
+        };
     }, [id]);
 
     return (
@@ -22,24 +35,28 @@ const MovieDetails = () => {
             {movie && (
                 <Datails>
                     <Wraper>
-                    <Img src={`${BASE_URL_IMG}${movie.poster_path}`} alt={movie.title}/>
-                    <div>
-                        <h2>
-                            {movie.title} ({movie.release_date.slice(0, 4)})
-                        </h2>
-                        <Text>
-                            User score: {Math.floor(movie.vote_average * 10)}%
-                        </Text>
-                        <h3>Overview</h3>
-                        {movie.overview ? (
-                            <Text>{movie.overview}</Text>
-                        ) : (
-                            <Text>Not found</Text>
-                        )}
-                        <h4>Ganres</h4>
-                        {movie.genres.map(e => (
-                            <Text key={e.id}>{e.name}</Text>
-                        ))}
+                        <Img
+                            src={`${BASE_URL_IMG}${movie.poster_path}`}
+                            alt={movie.title}
+                        />
+                        <div>
+                            <h2>
+                                {movie.title} ({movie.release_date.slice(0, 4)})
+                            </h2>
+                            <Text>
+                                User score:{' '}
+                                {Math.floor(movie.vote_average * 10)}%
+                            </Text>
+                            <h3>Overview</h3>
+                            {movie.overview ? (
+                                <Text>{movie.overview}</Text>
+                            ) : (
+                                <Text>Not found</Text>
+                            )}
+                            <h4>Ganres</h4>
+                            {movie.genres.map(e => (
+                                <Text key={e.id}>{e.name}</Text>
+                            ))}
                         </div>
                     </Wraper>
                     <p>Additional information</p>

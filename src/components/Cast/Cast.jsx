@@ -10,10 +10,17 @@ const Cast = () => {
     const { id } = useParams();
 
     useEffect(() => {
-        getMovieCast(id).then(res => {
+        const abortController = new AbortController();
+
+
+        getMovieCast(abortController, id).then(res => {
             setState(res.data.cast);
             setload(true);
         });
+
+        return () => {
+            abortController.abort();
+        };
     }, [id]);
 
     return (

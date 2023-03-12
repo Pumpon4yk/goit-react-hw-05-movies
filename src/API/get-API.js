@@ -32,10 +32,13 @@ const getSearchMovie = async (abort, name) => {
 };
 
 
-const getMovie = async id => {
+const getMovie = async (abort,id) => {
     try {
         const respons = await axios.get(
-            `${BASE_URL}movie/${id}?api_key=${AUTH_TOKEN}`
+            `${BASE_URL}movie/${id}?api_key=${AUTH_TOKEN}`,
+            {
+                signal: abort.signal,
+            }
         );
         return respons;
     } catch (error) {
@@ -44,10 +47,13 @@ const getMovie = async id => {
 };
 
 
-const getMovieCast = async id => {
+const getMovieCast = async (abort, id) => {
     try {
         const respons = await axios.get(
-            `${BASE_URL}movie/${id}/credits?api_key=${AUTH_TOKEN}`
+            `${BASE_URL}movie/${id}/credits?api_key=${AUTH_TOKEN}`,
+            {
+                signal: abort.signal,
+            }
         );
         return respons;
     } catch (error) {
@@ -55,10 +61,13 @@ const getMovieCast = async id => {
     }
 };
 
-const getMovieReviews = async id => {
+const getMovieReviews = async (abort, id) => {
     try {
         const respons = await axios.get(
-            `${BASE_URL}movie/${id}/reviews?api_key=${AUTH_TOKEN}`
+            `${BASE_URL}movie/${id}/reviews?api_key=${AUTH_TOKEN}`,
+            {
+                signal: abort.signal,
+            }
         );
         return respons;
     } catch (error) {
