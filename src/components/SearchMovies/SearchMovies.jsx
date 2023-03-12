@@ -22,7 +22,7 @@ if(!name.trim()) {
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
-      <Input defaultValue={''} {...register('name')} />
+      <Input defaultValue={''} {...register('name')} autoFocus/>
       <Button type="submit">Search</Button>
     </Form>
   );
