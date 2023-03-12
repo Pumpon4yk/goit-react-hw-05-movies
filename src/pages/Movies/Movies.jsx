@@ -9,7 +9,6 @@ const Movies = () => {
     const [movies, setMovies] = useState([]);
     const [searchParams, setSearchParams] = useSearchParams();
   const search = searchParams.get('search');
-  console.log("🚀 ~ Movies ~ search:", search)
 
 
     useEffect(() => {
