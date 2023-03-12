@@ -6,7 +6,7 @@ const BASE_URL = 'https://api.themoviedb.org/3/';
 const getPopularMovies = async abort => {
     try {
         const respons = await axios.get(
-            `${BASE_URL}trending/all/day?api_key=${AUTH_TOKEN}`,
+            `${BASE_URL}trending/movie/day?api_key=${AUTH_TOKEN}`,
             {
                 signal: abort.signal,
             }
