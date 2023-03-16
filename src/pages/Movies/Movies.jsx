@@ -1,4 +1,3 @@
-import { Container } from './Movies.styled';
 import SearchMovies from '../../components/SearchMovies';
 import { useSearchParams } from 'react-router-dom';
 import { getSearchMovie } from 'API/get-API';
@@ -30,10 +29,10 @@ const Movies = () => {
     };
 
     return (
-        <Container>
+        <>
             <SearchMovies handelSubmit={handelSubmit} />
             {movies && <ListMovies listMovies={movies} />}
-        </Container>
+        </>
     );
 };
 

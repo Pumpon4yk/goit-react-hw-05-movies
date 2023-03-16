@@ -1,6 +1,7 @@
 import { getMovieCast } from 'API/get-API';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import {Container} from './Cast.styled'
 
 const BASE_URL_IMG = 'https://image.tmdb.org/t/p/w500/';
 
@@ -24,7 +25,7 @@ const Cast = () => {
     }, [id]);
 
     return (
-        <div>
+        <Container>
             {!load ? (
                 <p>loading...</p>
             ) : state.length !== 0 ? (
@@ -44,7 +45,7 @@ const Cast = () => {
             ) : (
                 <p>Sorry, we don't have any cast about this movie</p>
             )}
-        </div>
+        </Container>
     );
 };
 
